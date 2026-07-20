@@ -1,0 +1,85 @@
+aid: ubank
+url: https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/apis.yml
+name: ubank
+kind: company
+description: ubank is an Australian digital-only bank offering savings accounts and
+  home loans online and over the phone. Launched in 2008 as the online banking brand
+  of National Australia Bank (NAB), ubank operates under NAB's authorised deposit-taking
+  institution (ADI) licence and is registered in the Consumer Data Right (CDR) ecosystem
+  as the "UBank" data holder brand under NAB (ABN 12 004 044 937). After NAB acquired
+  neobank 86 400 in 2021, its customers and technology were migrated onto the 86 400
+  platform, which is why ubank's public CDR API surface is hosted at public.cdr-api.86400.com.au.
+  As a CDR data holder, ubank exposes a public, unauthenticated Product Reference Data
+  (PRD) API conforming to the Consumer Data Standards, while authenticated consumer
+  banking data is shared only with accredited data recipients under the CDR's OAuth2/OIDC
+  (FAPI) authorization model.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Banking
+- Open Banking
+- CDR
+- Consumer Data Right
+- Product Reference Data
+- Digital Bank
+- Consumer Banking
+- Australia
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: ubank:ubank-cdr-product-reference-data-api
+  name: ubank CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Products
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
+  properties:
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+    type: APIReference
+  - url: openapi/ubank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right (CDR) Product Reference
+    Data endpoint (GET /banking/products) returning ubank's openly available banking
+    products - savings accounts and residential mortgages - with pricing, fees, and
+    eligibility, conforming to the DSB Consumer Data Standards. Confirmed live returning
+    HTTP 200 with an x-v response header on version 5.
+- aid: ubank:ubank-cdr-product-detail-api
+  name: ubank CDR Banking Product Detail API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Detail
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
+  properties:
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+    type: APIReference
+  - url: openapi/ubank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated CDR endpoint (GET /banking/products/{productId})
+    returning the full detail for a single ubank banking product - rates, fees, features,
+    eligibility, constraints, and terms - conforming to the DSB Consumer Data Standards
+    Get Product Detail contract.
+common:
+- type: Website
+  url: https://www.ubank.com.au/
+- type: Documentation
+  url: https://www.ubank.com.au/cdr/apis
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ubank
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

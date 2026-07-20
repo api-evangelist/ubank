@@ -1,0 +1,80 @@
+aid: ubank
+name: ubank
+review:
+  question: Does ubank expose a confirmed, live public API surface, and what is its posture?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  specProvenance: DSB Consumer Data Standards (shared standard, not a ubank-proprietary contract)
+findings:
+  summary: |
+    ubank's only public, unauthenticated API surface is its Consumer Data Right
+    (CDR) Product Reference Data (PRD) service, as required of every active
+    Australian authorised deposit-taking institution. ubank is a digital-only
+    bank operating under National Australia Bank's (NAB) ADI licence and appears
+    in the CDR Register as the "UBank" data holder brand under NAB
+    (ABN 12 004 044 937). Its CDR public base URI is
+    https://public.cdr-api.86400.com.au - the 86 400 platform ubank migrated onto
+    after NAB acquired neobank 86 400 in 2021.
+
+    The PRD endpoint was CONFIRMED LIVE on the review date: a request to
+    GET https://public.cdr-api.86400.com.au/cds-au/v1/banking/products with header
+    x-v: 5 returned HTTP 200, content-type application/json, an x-v: 5 response
+    header, and a data.products array (14 products - savings accounts and
+    residential mortgages). Requests without an x-v header return HTTP 400, and a
+    request for an unsupported version (x-v: 3) returns HTTP 406 with x-v: 5,
+    exactly as prescribed by the Consumer Data Standards versioning scheme.
+
+    ubank does NOT publish a general-purpose developer portal or Up-style
+    personal-banking API; the only documented developer-facing pages are its CDR
+    product-data pages under ubank.com.au/cdr. Authenticated consumer data (account,
+    transaction, etc.) is never exposed publicly - it is available only to
+    accredited data recipients (ADRs) through the CDR's OAuth2/OpenID Connect
+    FAPI-secured Accredited Data Recipient model, which is out of scope for an
+    unauthenticated harvest.
+
+    A verbatim OpenAPI 3.0.3 contract was harvested. Provenance: it is the DSB
+    Consumer Data Standards "CDR Banking API" specification (version 1.36.0), the
+    SHARED industry standard to which ubank's PRD conforms - NOT a ubank-proprietary
+    spec. ubank does not publish its own OpenAPI document. The harvested spec
+    describes the full CDS Banking surface; the two unauthenticated PRD operations
+    (Get Products, Get Product Detail) are the portion ubank exposes publicly.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
+      documented: true
+      note: CDR Product Reference Data API, unauthenticated, versioned via the x-v request/response header.
+  endpointsConfirmedRest:
+    - GET https://public.cdr-api.86400.com.au/cds-au/v1/banking/products
+    - GET https://public.cdr-api.86400.com.au/cds-au/v1/banking/products/{productId}
+  authModel:
+    publicPrd: none (unauthenticated Product Reference Data per CDR)
+    consumerData: OAuth2 / OpenID Connect, FAPI-secured, CDR Accredited Data Recipient (ADR) model - not publicly accessible
+  developerPortal:
+    exists: false
+    note: No dedicated developer portal or public authenticated API. CDR product-data information is published under https://www.ubank.com.au/cdr and https://www.ubank.com.au/cdr/apis.
+sources:
+  - url: https://api.cdr.gov.au/cdr-register/v1/banking/data-holders/brands/summary
+    type: APIReference
+    note: CDR Register Data Holder Brands Summary lists brandName "UBank", publicBaseUri https://public.cdr-api.86400.com.au, ABN 12004044937, lastUpdated 2026-07-01 (active).
+  - url: https://public.cdr-api.86400.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Confirmed live - HTTP 200 with x-v 5 and a data.products array (14 products) when called with x-v 5; HTTP 400 without x-v; HTTP 406 + x-v 5 for unsupported x-v 3.
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+    note: ubank Product Data APIs page describing the public Get Products and Get Product Detail CDR APIs.
+  - url: https://www.ubank.com.au/cdr
+    type: Documentation
+    note: ubank Consumer Data Right policy page.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/
+    type: Documentation
+    note: DSB Consumer Data Standards - the shared standard to which ubank's PRD conforms.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.json
+    type: OpenAPI
+    note: Source of the harvested OpenAPI 3.0.3 "CDR Banking API" v1.36.0 (DSB standard), saved verbatim as YAML to openapi/ubank-cds-banking-products-openapi.yml.
+actions:
+  openapiPath: openapi/ubank-cds-banking-products-openapi.yml
+  openapiProvenance: DSB Consumer Data Standards shared spec (CDR Banking API v1.36.0), not ubank-proprietary.
+  apisYmlUpdated: true
