@@ -1,0 +1,70 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from the 4xx responses on the two public operations in
+  openapi/ubank-cds-banking-products-openapi.yml and the DSB Consumer Data
+  Standards error-code registry the CDR Banking API references. ubank's public
+  PRD surface uses the shared CDS error format, not RFC 9457.
+format: cds-response-error-list
+envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2
+  shape: '{ "errors": [ { "code": "urn:au-cds:error:...", "title": "...", "detail": "...", "meta": { ... } } ] }'
+  fields:
+    code: The error code URN (or an application-specific string that extends a URN via meta).
+    title: A short, stable human-readable summary that must not change per occurrence.
+    detail: A human-readable explanation specific to this occurrence.
+    meta: Optional; carries the extended URN and/or urn parameters for the error.
+errors:
+- status: 400
+  code: urn:au-cds:error:v2:Field/Invalid
+  title: Invalid Field
+  detail: A supplied field value did not pass validation.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:v2:Field/Missing
+  title: Missing Required Field
+  detail: A required request field was not supplied.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:v2:Header/Missing
+  title: Missing Required Header
+  detail: A required request header (e.g. x-v) was not supplied.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:v2:Header/InvalidVersion
+  title: Invalid Version
+  detail: The x-v (or x-min-v) header value was not a valid positive integer.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:v2:Field/InvalidDateTime
+  title: Invalid Date
+  detail: A supplied date/time value (e.g. updated-since) was not a valid DateTimeString.
+  source_operations: [listBankingProducts]
+- status: 400
+  code: urn:au-cds:error:v2:Field/InvalidPageSize
+  title: Invalid Page Size
+  detail: The page-size value was outside the permitted range.
+  source_operations: [listBankingProducts]
+- status: 404
+  code: urn:au-cds:error:v2:Resource/NotFound
+  title: Unavailable Resource
+  detail: The requested resource (productId) exists in the standard but is not available.
+  source_operations: [getBankingProductDetail]
+- status: 404
+  code: urn:au-cds:error:v2:Resource/Invalid
+  title: Invalid Resource
+  detail: The supplied productId is not a valid resource identifier.
+  source_operations: [getBankingProductDetail]
+- status: 406
+  code: urn:au-cds:error:v2:Header/UnsupportedVersion
+  title: Unsupported Version
+  detail: >-
+    None of the requested API versions are supported. The response echoes the
+    supported version in the x-v response header (confirmed live: x-v 3 -> 406).
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 422
+  code: urn:au-cds:error:v2:Field/InvalidPage
+  title: Invalid Page
+  detail: The requested page is out of range for the result set.
+  source_operations: [listBankingProducts]

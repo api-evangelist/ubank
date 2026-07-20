@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ubank CDR Product Reference Data
+  version: 1.0.0
+extends: openapi/ubank-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: ubank
+    x-apievangelist-provenance: >-
+      Spec is the DSB Consumer Data Standards CDR Banking API v1.36.0 (shared
+      industry standard), not a ubank-proprietary contract. ubank publicly
+      exposes only the two unauthenticated Product Reference Data operations.
+    x-apievangelist-public-operations:
+    - listBankingProducts
+    - getBankingProductDetail
+    x-apievangelist-base-url: https://public.cdr-api.86400.com.au/cds-au/v1
+- target: $.servers
+  update:
+  - description: ubank public CDR Product Reference Data (production)
+    url: https://public.cdr-api.86400.com.au/cds-au/v1
+- target: $.paths['/banking/products'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-auth: none
+    x-apievangelist-current-version: '5'
+- target: $.paths['/banking/products/{productId}'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-auth: none
+    x-apievangelist-current-version: '7'

@@ -74,6 +74,32 @@ apis:
     eligibility, constraints, and terms - conforming to the DSB Consumer Data Standards
     Get Product Detail contract.
 common:
+- type: DomainSecurity
+  url: security/ubank-domain-security.yml
+- type: Authentication
+  url: authentication/ubank-authentication.yml
+- type: Conventions
+  url: conventions/ubank-conventions.yml
+- type: ErrorCatalog
+  url: errors/ubank-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/ubank-lifecycle.yml
+- type: StatusPage
+  url: https://status.ubank.com.au/
+- type: Deprecation
+  url: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+- type: Conformance
+  url: conformance/ubank-conformance.yml
+- type: DataModel
+  url: data-model/ubank-data-model.yml
+- type: Overlay
+  url: overlays/ubank-cds-banking-products-overlay.yaml
+- type: MCPServer
+  url: mcp/ubank-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/ubank-llms.txt
 - type: Website
   url: https://www.ubank.com.au/
 - type: Documentation

@@ -1,0 +1,57 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from openapi/ubank-cds-banking-products-openapi.yml (the DSB Consumer
+  Data Standards CDR Banking API v1.36.0 that ubank's public PRD conforms to) and
+  the ubank CDR Register data-holder entry. Conformance to the CDR regime and its
+  underlying standards; the public Product Reference Data surface is
+  unauthenticated, while the authenticated CDR data-sharing surface uses the
+  OAuth2/OIDC FAPI security profile (not part of the public API).
+standards:
+- id: cdr-consumer-data-right
+  conforms: true
+  evidence: >-
+    Registered CDR data holder brand "UBank" under NAB (ABN 12004044937) with
+    publicBaseUri https://public.cdr-api.86400.com.au in the CDR Register.
+- id: cds-consumer-data-standards
+  conforms: true
+  evidence: >-
+    Public PRD endpoints implement the DSB Consumer Data Standards CDR Banking
+    API (Get Products / Get Product Detail) with x-v header versioning.
+- id: cds-versioning-x-v
+  conforms: true
+  evidence: >-
+    x-v request header required; unsupported version returns 406 with supported
+    x-v echoed; missing header returns 400 (confirmed live on review date).
+- id: cds-pagination
+  conforms: true
+  evidence: >-
+    Standard pagination via page and page-size query params; response meta
+    carries totalPages/totalRecords and links carry self/first/prev/next/last.
+- id: cds-error-format
+  conforms: true
+  evidence: >-
+    Errors use the CDS ResponseErrorList envelope (errors[] with code/title/detail,
+    urn:au-cds:error:* codes) - not RFC 9457 problem+json.
+- id: fapi-financial-grade-api
+  conforms: true
+  applies_to: authenticated-cdr-data-sharing
+  evidence: >-
+    CDR consumer data sharing (accredited data recipient model) uses the FAPI
+    security profile; not exercised by the public unauthenticated PRD surface.
+- id: oauth2
+  conforms: true
+  applies_to: authenticated-cdr-data-sharing
+  evidence: CDR data-sharing authorization uses OAuth2 (FAPI); public PRD is unauthenticated.
+- id: openid-connect
+  conforms: true
+  applies_to: authenticated-cdr-data-sharing
+  evidence: CDR uses OpenID Connect for authorization; not used by the public PRD surface.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: CDR uses the ResponseErrorList envelope, not application/problem+json.
+- id: x-fapi-interaction-id-tracing
+  conforms: true
+  evidence: >-
+    x-fapi-interaction-id request/response correlation header defined by the CDS
+    contract for request tracing.

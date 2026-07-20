@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from the product schemas in
+  openapi/ubank-cds-banking-products-openapi.yml (BankingProductV6 base plus the
+  BankingProductDetailV7 detail composition). Captures the entity graph behind
+  ubank's public CDR Product Reference Data surface - the only publicly exposed
+  domain. The authenticated CDR account/transaction domain is not publicly
+  accessible and is out of scope.
+docs: https://consumerdatastandardsaustralia.github.io/standards/#product-reference-data-apis
+notation: >-
+  relationships use has_one / has_many with the composing field name; the product
+  detail response embeds its sub-resources (it is not id-referenced).
+entities:
+- {name: BankingProduct, key: productId, domain: product-reference-data, description: An openly offered banking product - a savings account or residential mortgage - with brand, category, effective dates, and application URI.}
+- {name: ProductFeature, domain: product-reference-data, description: A feature of the product (feature type + optional value/description).}
+- {name: ProductFee, domain: product-reference-data, description: A fee associated with the product (name, type, amount/rate, discounts).}
+- {name: ProductConstraint, domain: product-reference-data, description: A constraint on the product (e.g. min/max balance or opening amount).}
+- {name: ProductEligibility, domain: product-reference-data, description: An eligibility criterion for holding/opening the product.}
+- {name: ProductDepositRate, domain: product-reference-data, description: A deposit interest rate applicable to the product (with tiers).}
+- {name: ProductLendingRate, domain: product-reference-data, description: A lending interest rate applicable to the product (with tiers).}
+- {name: ProductBundle, domain: product-reference-data, description: A bundle the product participates in.}
+- {name: ProductInstalment, domain: product-reference-data, description: Instalment terms available on the product.}
+- {name: ProductRateTier, domain: product-reference-data, description: A rate tier (min/max, unit of measure) under a deposit or lending rate.}
+- {name: AdditionalInformation, domain: product-reference-data, description: URIs to overview/terms/eligibility/fees-and-pricing/bundle documentation.}
+relationships:
+- {from: BankingProduct, to: ProductFeature, kind: has_many, via: features}
+- {from: BankingProduct, to: ProductFee, kind: has_many, via: fees}
+- {from: BankingProduct, to: ProductConstraint, kind: has_many, via: constraints}
+- {from: BankingProduct, to: ProductEligibility, kind: has_many, via: eligibility}
+- {from: BankingProduct, to: ProductDepositRate, kind: has_many, via: depositRates}
+- {from: BankingProduct, to: ProductLendingRate, kind: has_many, via: lendingRates}
+- {from: BankingProduct, to: ProductBundle, kind: has_many, via: bundles}
+- {from: BankingProduct, to: ProductInstalment, kind: has_many, via: instalments}
+- {from: BankingProduct, to: AdditionalInformation, kind: has_one, via: additionalInformation}
+- {from: ProductDepositRate, to: ProductRateTier, kind: has_many, via: tiers}
+- {from: ProductLendingRate, to: ProductRateTier, kind: has_many, via: tiers}

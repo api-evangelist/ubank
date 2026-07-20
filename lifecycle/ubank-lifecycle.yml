@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  DSB Consumer Data Standards (versioning, obsolescence and retirement rules)
+  that govern ubank's public CDR Product Reference Data surface, plus the live
+  ubank status page. ubank does not publish its own API versioning or deprecation
+  policy; the CDR standard is the governing lifecycle contract.
+versioning:
+  scheme: per-endpoint integer version negotiated via the x-v request header
+  mechanism: >-
+    Each client request sets x-v (and optionally x-min-v) to the payload version
+    it wants; the endpoint responds with the highest supported version in range
+    and echoes it in the x-v response header. Unsupported -> 406; missing -> 400.
+  current:
+    listBankingProducts: '5'
+    getBankingProductDetail: '7'
+  spec_version: 1.36.0
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+deprecation:
+  policy: CDS API version obsolescence and retirement schedule (DSB-published)
+  mechanism: >-
+    Older endpoint payload versions are marked obsolete and eventually retired by
+    the Data Standards Body on a published schedule; the spec links obsolete
+    versions (get-products v1-v4, get-product-detail v1-v6).
+  policy_url: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+  sunset_header: false
+status_page: https://status.ubank.com.au/
+sla:
+  note: >-
+    Governed by CDR performance and availability requirements (Non-Functional
+    Requirements) for data holders; ubank publishes no separate commercial API SLA.
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#non-functional-requirements
+deprecated_operations: []

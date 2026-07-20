@@ -1,0 +1,34 @@
+# ubank
+
+> ubank is an Australian digital-only bank (a brand of National Australia Bank, NAB) offering savings accounts and home loans. As a Consumer Data Right (CDR) data holder, ubank exposes a public, unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data Standards. Authenticated consumer banking data is shared only with accredited data recipients under the CDR's OAuth2/OIDC (FAPI) model. The public CDR base URI is hosted on the 86 400 platform ubank migrated onto after NAB acquired neobank 86 400 in 2021.
+
+## APIs
+
+- [ubank CDR Product Reference Data API](https://www.ubank.com.au/cdr/apis): Public, unauthenticated GET /banking/products returning ubank's openly available banking products with pricing, fees, and eligibility. Base: https://public.cdr-api.86400.com.au/cds-au/v1
+- [ubank CDR Banking Product Detail API](https://www.ubank.com.au/cdr/apis): Public, unauthenticated GET /banking/products/{productId} returning full detail for a single product. Base: https://public.cdr-api.86400.com.au/cds-au/v1
+
+## Specs
+
+- [OpenAPI (CDR Banking API v1.36.0, DSB standard)](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/openapi/ubank-cds-banking-products-openapi.yml)
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/authentication/ubank-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/conventions/ubank-conventions.yml)
+- [Error codes](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/errors/ubank-error-codes.yml)
+- [Lifecycle & versioning](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/lifecycle/ubank-lifecycle.yml)
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/conformance/ubank-conformance.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/data-model/ubank-data-model.yml)
+- [MCP tool surface (candidate)](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/mcp/ubank-mcp.yml)
+- [Agent skill: look up products](https://raw.githubusercontent.com/api-evangelist/ubank/refs/heads/main/skills/ubank-lookup-products.md)
+
+## Docs
+
+- [ubank Product Data APIs](https://www.ubank.com.au/cdr/apis): The public Get Products and Get Product Detail CDR API pages.
+- [ubank Consumer Data Right policy](https://www.ubank.com.au/cdr): ubank's CDR policy page.
+- [DSB Consumer Data Standards](https://consumerdatastandardsaustralia.github.io/standards/): The shared standard ubank's PRD conforms to.
+- [CDR Register - Data Holder Brands](https://api.cdr.gov.au/cdr-register/v1/banking/data-holders/brands/summary): Lists brandName "UBank", publicBaseUri https://public.cdr-api.86400.com.au (NAB, ABN 12004044937).
+- [ubank Status](https://status.ubank.com.au/): Operational status page.
+
+## Notes
+
+- Every request MUST send an `x-v` header (integer API version). Get Products serves x-v 5; Get Product Detail serves x-v 7. A missing `x-v` returns 400; an unsupported version returns 406 with the supported version echoed in the `x-v` response header.
+- The public PRD surface is read-only and unauthenticated. There is no idempotency, write, or webhook surface on the public API.
+- The OpenAPI captured is the DSB Consumer Data Standards "CDR Banking API" (v1.36.0) shared industry spec, not a ubank-proprietary contract; ubank exposes the two unauthenticated Product Reference Data operations from it.

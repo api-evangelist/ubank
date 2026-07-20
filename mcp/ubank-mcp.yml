@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: >-
+  Derived from the two publicly exposed, unauthenticated CDR Product Reference
+  Data operations in openapi/ubank-cds-banking-products-openapi.yml. ubank
+  publishes no official hosted/remote MCP server; this is a candidate tool
+  surface for the public Product Reference Data endpoints only. The authenticated
+  CDR consumer-data surface (accounts, balances, transactions, payees) is
+  FAPI/OAuth2-secured and available only to accredited data recipients, so it is
+  intentionally out of scope for an anonymous MCP surface.
+server:
+  name: ubank-cdr-products
+  transport: http
+  url: null
+  base_url: https://public.cdr-api.86400.com.au/cds-au/v1
+  auth: none
+  note: >-
+    All requests require an x-v request header (integer API version). Get
+    Products currently serves x-v 5; Get Product Detail currently serves x-v 7.
+tools:
+- name: list_banking_products
+  description: >-
+    List ubank's openly offered banking products (savings accounts and
+    residential mortgages) with pricing, fees, and eligibility. Supports
+    effective/updated-since/brand/product-category filters and standard
+    page/page-size pagination.
+  source_operation: openapi/ubank-cds-banking-products-openapi.yml#listBankingProducts
+  http: GET /banking/products
+  required_headers: [x-v]
+- name: get_banking_product_detail
+  description: >-
+    Get the full detail for a single ubank banking product by productId - rates,
+    fees, features, eligibility, constraints, bundles, and terms.
+  source_operation: openapi/ubank-cds-banking-products-openapi.yml#getBankingProductDetail
+  http: GET /banking/products/{productId}
+  required_headers: [x-v]

@@ -1,0 +1,65 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from openapi/ubank-cds-banking-products-openapi.yml (the DSB Consumer
+  Data Standards CDR Banking API) and the CDS HTTP-headers/pagination conventions
+  that govern ubank's public PRD surface. These are the cross-cutting
+  request/response semantics that apply to every operation.
+description: >-
+  How ubank's public CDR Product Reference Data API behaves across its
+  operations: authentication, versioning via the x-v header, standard pagination,
+  request tracing, and the CDS error envelope. The public surface is read-only,
+  so there is no idempotency, expansion, or metadata write contract.
+base_url: https://public.cdr-api.86400.com.au/cds-au/v1
+api_style: REST over HTTPS, JSON responses, read-only public Product Reference Data
+authentication:
+  scheme: none (public unauthenticated Product Reference Data)
+  detail: authentication/ubank-authentication.yml
+versioning:
+  scheme: per-endpoint integer version negotiated by header
+  request_headers:
+    x-v: Required. The payload version the client requests (positive integer).
+    x-min-v: Optional. The minimum acceptable payload version.
+  response_headers:
+    x-v: The payload version the endpoint responded with.
+  behavior: >-
+    Missing x-v -> 400; requested version(s) unsupported -> 406 with the supported
+    version echoed in the x-v response header.
+  detail: lifecycle/ubank-lifecycle.yml
+pagination:
+  style: page-number (standard CDS pagination)
+  request_params:
+    page: Page of results to request (default 1).
+    page-size: Page size to request (default 25).
+  response_fields:
+    data: The result payload (e.g. products array).
+    meta.totalRecords: Total number of records in the full set.
+    meta.totalPages: Total number of pages in the full set.
+    links.self: Fully qualified link that generated the current response.
+    links.first/prev/next/last: Page navigation links (conditional).
+  applies_to: [listBankingProducts]
+idempotency:
+  supported: false
+  note: The public surface is read-only (GET only); there is no idempotency-key contract.
+request_tracing:
+  header: x-fapi-interaction-id
+  description: >-
+    An RFC 4122 UUID correlation id. If supplied it is played back in the
+    x-fapi-interaction-id response header; otherwise the data holder generates one.
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  schema: ResponseErrorListV2
+  shape: '{ "errors": [ { "code", "title", "detail", "meta" } ] }'
+  detail: errors/ubank-error-codes.yml
+rate_limits:
+  note: >-
+    Governed by CDR Non-Functional Requirements for data holders; ubank publishes
+    no separate rate-limit headers on the public PRD surface.
+other_conventions:
+- name: Product filtering
+  detail: >-
+    effective (CURRENT/FUTURE/ALL), updated-since (DateTimeString), brand, and
+    product-category query filters on Get Products.
+- name: Amounts and rates
+  detail: Monetary amounts and rates follow the CDS AmountString/RateString formats.

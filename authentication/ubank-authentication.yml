@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  DSB Consumer Data Standards security profile and the ubank CDR pages. The
+  harvested OpenAPI declares no securitySchemes because the two operations ubank
+  exposes publicly are the unauthenticated Product Reference Data endpoints; the
+  authenticated CDR consumer-data surface is governed by the CDR FAPI security
+  profile and is not part of the public API.
+docs: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+summary:
+  types: [none, oauth2, openIdConnect]
+  public_surface: none
+  authenticated_surface: oauth2 + openIdConnect (FAPI)
+surfaces:
+- name: public-product-reference-data
+  auth: none
+  applies_to: [listBankingProducts, getBankingProductDetail]
+  detail: >-
+    Public, unauthenticated CDR Product Reference Data. No API key, token, or
+    client credential is required. Requests must carry an x-v version header.
+- name: authenticated-cdr-data-sharing
+  auth: oauth2 + openid-connect
+  security_profile: FAPI (Financial-grade API)
+  applies_to: not-publicly-accessible
+  detail: >-
+    Consumer banking data (accounts, balances, transactions, payees, scheduled
+    payments, direct debits) is shared only with CDR Accredited Data Recipients
+    (ADRs) after consumer consent, via the CDR OAuth2/OpenID Connect FAPI
+    authorization model. Not exposed on ubank's public API surface and not
+    exercisable without CDR accreditation.
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#security-profile
