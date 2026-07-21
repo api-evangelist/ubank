@@ -1,0 +1,74 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  DSB Consumer Data Standards security profile (authorisation scopes) and the CDR
+  Support authorisation-scopes reference. ubank's harvested OpenAPI declares no
+  securitySchemes because the two operations it exposes publicly are the
+  unauthenticated Product Reference Data endpoints; the authenticated CDR
+  consumer-data surface (accounts, balances, transactions, direct debits,
+  scheduled payments, payees) is authorised only to Accredited Data Recipients
+  (ADRs) under the CDR OAuth2/OpenID Connect (FAPI) model, using the standardised
+  CDS authorisation scopes below. These scopes are defined by the Data Standards
+  Body, not by ubank; every AU banking data holder (including ubank under NAB)
+  implements the same scope set.
+docs: https://cdr-support.zendesk.com/hc/en-us/articles/6402872869135-Authorisation-scopes
+security_profile: FAPI (Financial-grade API) over CDR OAuth2 / OpenID Connect
+public_surface_note: >-
+  The public Product Reference Data endpoints (listBankingProducts,
+  getBankingProductDetail) require NO scope and NO token - they are open and
+  unauthenticated. Scopes apply only to the consumer-authorised data-sharing
+  surface reached by an ADR after consent.
+schemes:
+- name: CDR-FAPI-OIDC
+  type: openIdConnect
+  grant: authorization_code (with PAR + PKCE, request object, FAPI 1.0 Advanced)
+  source: DSB Consumer Data Standards security profile
+scopes:
+- scope: openid
+  description: OIDC base scope required for the CDR authorisation code flow.
+  category: identity
+- scope: profile
+  description: OIDC profile scope requested as part of the CDR consent flow.
+  category: identity
+- scope: common:customer.basic:read
+  description: >-
+    Read the consumer's basic customer/contact details (name, occupation for
+    individuals; organisation basics for businesses).
+  category: common
+- scope: common:customer.detail:read
+  description: >-
+    Read the consumer's detailed customer/contact details (phone, email,
+    residential/mailing address; extended organisation details).
+  category: common
+- scope: bank:accounts.basic:read
+  description: >-
+    Read the list of accounts and basic account attributes and balances.
+  category: banking
+  applies_to: [listBankingAccounts, listBankingBalancesBulk, listBankingBalancesSpecificAccounts, getBankingBalance]
+- scope: bank:accounts.detail:read
+  description: >-
+    Read the full detail for a single account (rates, features, fees, terms,
+    account numbers).
+  category: banking
+  applies_to: [getBankingAccountDetail]
+- scope: bank:transactions:read
+  description: >-
+    Read transactions for the consumer's authorised accounts, including
+    transaction detail.
+  category: banking
+  applies_to: [listBankingTransactions, getBankingTransactionDetail]
+- scope: bank:payees:read
+  description: Read the consumer's saved payees and payee detail.
+  category: banking
+  applies_to: [listBankingPayees, getBankingPayeeDetail]
+- scope: bank:regular_payments:read
+  description: >-
+    Read the consumer's authorised direct debits and scheduled/recurring
+    payments.
+  category: banking
+  applies_to: [listDirectDebits, listDirectDebitsBulk, listDirectDebitsSpecificAccounts, listScheduledPayments, listScheduledPaymentsBulk, listScheduledPaymentsSpecificAccounts]
+notes:
+- >-
+    Per CDS data-minimisation rules an ADR must request the matching basic scope
+    whenever it requests a detail scope; detailed account authorisation is only
+    meaningful when bank:accounts.basic:read is also authorised.

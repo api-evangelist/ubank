@@ -175,6 +175,8 @@ common:
   url: security/ubank-domain-security.yml
 - type: Authentication
   url: authentication/ubank-authentication.yml
+- type: OAuthScopes
+  url: scopes/ubank-scopes.yml
 - type: Conventions
   url: conventions/ubank-conventions.yml
 - type: ErrorCatalog
@@ -201,6 +203,10 @@ common:
   url: https://www.ubank.com.au/
 - type: Documentation
   url: https://www.ubank.com.au/cdr/apis
+- type: Support
+  url: https://www.ubank.com.au/help
+- type: PrivacyPolicy
+  url: https://www.ubank.com.au/privacy
 - type: LinkedIn
   url: https://www.linkedin.com/company/ubank
 maintainers:
