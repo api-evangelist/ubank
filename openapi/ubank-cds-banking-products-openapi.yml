@@ -1,3 +1,11 @@
+# Provenance: This is the shared DSB Consumer Data Standards "CDR Banking API"
+# (cds_banking) v1.36.0, harvested verbatim from the Data Standards Body
+# (consumerdatastandardsaustralia.github.io/standards). It is the standardized
+# surface every AU ADI (including ubank, under NAB) is required to implement -
+# NOT a ubank-proprietary spec. Public endpoints (Get Products / Get Product
+# Detail) are unauthenticated; all account/balance/transaction/direct-debit/
+# scheduled-payment/payee endpoints are consumer-authorized via the CDR ADR
+# (FAPI OAuth2/OIDC) model. ubank's live CDR host: public.cdr-api.86400.com.au
 openapi: 3.0.3
 info:
   contact:

@@ -26,7 +26,7 @@ tags:
 - Consumer Banking
 - Australia
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
 - aid: ubank:ubank-cdr-product-reference-data-api
@@ -73,6 +73,103 @@ apis:
     returning the full detail for a single ubank banking product - rates, fees, features,
     eligibility, constraints, and terms - conforming to the DSB Consumer Data Standards
     Get Product Detail contract.
+- aid: ubank:ubank-cdr-accounts-balances-api
+  name: ubank CDR Accounts & Balances API
+  tags:
+  - CDR
+  - Open Banking
+  - Accounts
+  - Balances
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+    type: APIReference
+  - url: openapi/ubank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints for a
+    customer's accounts and balances (Get Accounts, Get Bulk Balances, Get Account
+    Balance, Get Account Detail), conforming to the DSB Consumer Data Standards CDR
+    Banking API. Unlike the public Product Reference Data surface, these endpoints
+    require an active consent and are accessed only by an Accredited Data Recipient
+    (ADR) on the customer's behalf via the CDR OAuth2/OIDC (FAPI) authorization model
+    over the mutual-TLS data-holder host; they are not open/unauthenticated.
+- aid: ubank:ubank-cdr-transactions-api
+  name: ubank CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Transactions
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+    type: APIReference
+  - url: openapi/ubank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints returning
+    a customer's account transactions (Get Transactions For Account, Get Transaction
+    Detail), conforming to the DSB Consumer Data Standards CDR Banking API. These
+    endpoints require an active CDR consent and are called by an Accredited Data
+    Recipient (ADR) under the CDR OAuth2/OIDC (FAPI) authorization model over the
+    mutual-TLS data-holder host - they are not publicly accessible without
+    authorization.
+- aid: ubank:ubank-cdr-direct-debits-scheduled-payments-api
+  name: ubank CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking
+  properties:
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+    type: APIReference
+  - url: openapi/ubank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints exposing
+    a customer's authorized direct debits and scheduled/recurring payments (Get
+    Direct Debits For Account, Get Bulk Direct Debits, Get Scheduled Payments For
+    Account, Get Bulk Scheduled Payments), conforming to the DSB Consumer Data
+    Standards CDR Banking API. Access requires an active CDR consent and is mediated
+    by an Accredited Data Recipient (ADR) under the CDR OAuth2/OIDC (FAPI)
+    authorization model over the mutual-TLS data-holder host.
+- aid: ubank:ubank-cdr-payees-api
+  name: ubank CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Payees
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://www.ubank.com.au/cdr/apis
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+    type: APIReference
+  - url: openapi/ubank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints returning
+    a customer's saved payees (Get Payees, Get Payee Detail), conforming to the DSB
+    Consumer Data Standards CDR Banking API. These endpoints require an active CDR
+    consent and are accessed by an Accredited Data Recipient (ADR) on the customer's
+    behalf under the CDR OAuth2/OIDC (FAPI) authorization model over the mutual-TLS
+    data-holder host - they are not open or unauthenticated.
 common:
 - type: DomainSecurity
   url: security/ubank-domain-security.yml
