@@ -13,7 +13,19 @@ description: ubank is an Australian digital-only bank offering savings accounts 
   (PRD) API conforming to the Consumer Data Standards, while authenticated consumer
   banking data is shared only with accredited data recipients under the CDR's OAuth2/OIDC
   (FAPI) authorization model.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ubank.png
 tags:
 - Financial
 - Banks
@@ -29,147 +41,181 @@ created: '2026-07-20'
 modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
-- aid: ubank:ubank-cdr-product-reference-data-api
-  name: ubank CDR Product Reference Data API
-  tags:
-  - CDR
-  - Open Banking
-  - Product Reference Data
-  - Banking
-  - Products
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: ubank:ubank-banking-account-balances-api
+  name: ubank Banking Account Balances API
+  description: Banking Account Balance endpoints
   humanURL: https://www.ubank.com.au/cdr/apis
   baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
-  properties:
-  - url: https://www.ubank.com.au/cdr/apis
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
-    type: APIReference
-  - url: openapi/ubank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Public, unauthenticated Consumer Data Right (CDR) Product Reference
-    Data endpoint (GET /banking/products) returning ubank's openly available banking
-    products - savings accounts and residential mortgages - with pricing, fees, and
-    eligibility, conforming to the DSB Consumer Data Standards. Confirmed live returning
-    HTTP 200 with an x-v response header on version 5.
-- aid: ubank:ubank-cdr-product-detail-api
-  name: ubank CDR Banking Product Detail API
   tags:
-  - CDR
-  - Open Banking
-  - Product Detail
-  - Banking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - Banking Account Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/ubank-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: ubank:ubank-banking-account-direct-debits-api
+  name: ubank Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
   humanURL: https://www.ubank.com.au/cdr/apis
   baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
-  properties:
-  - url: https://www.ubank.com.au/cdr/apis
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
-    type: APIReference
-  - url: openapi/ubank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Public, unauthenticated CDR endpoint (GET /banking/products/{productId})
-    returning the full detail for a single ubank banking product - rates, fees, features,
-    eligibility, constraints, and terms - conforming to the DSB Consumer Data Standards
-    Get Product Detail contract.
-- aid: ubank:ubank-cdr-accounts-balances-api
-  name: ubank CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
-  - Accounts
-  - Balances
-  - Banking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.ubank.com.au/cdr/apis
-  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking/accounts
+  - Banking Account Direct Debits
   properties:
-  - url: https://www.ubank.com.au/cdr/apis
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
-    type: APIReference
-  - url: openapi/ubank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints for a
-    customer's accounts and balances (Get Accounts, Get Bulk Balances, Get Account
-    Balance, Get Account Detail), conforming to the DSB Consumer Data Standards CDR
-    Banking API. Unlike the public Product Reference Data surface, these endpoints
-    require an active consent and are accessed only by an Accredited Data Recipient
-    (ADR) on the customer's behalf via the CDR OAuth2/OIDC (FAPI) authorization model
-    over the mutual-TLS data-holder host; they are not open/unauthenticated.
-- aid: ubank:ubank-cdr-transactions-api
-  name: ubank CDR Transactions API
+  - type: OpenAPI
+    url: openapi/ubank-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: ubank:ubank-banking-account-scheduled-payments-api
+  name: ubank Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
   tags:
-  - CDR
-  - Open Banking
-  - Transactions
-  - Banking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.ubank.com.au/cdr/apis
-  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking/accounts
+  - Banking Account Scheduled Payments
   properties:
-  - url: https://www.ubank.com.au/cdr/apis
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
-    type: APIReference
-  - url: openapi/ubank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints returning
-    a customer's account transactions (Get Transactions For Account, Get Transaction
-    Detail), conforming to the DSB Consumer Data Standards CDR Banking API. These
-    endpoints require an active CDR consent and are called by an Accredited Data
-    Recipient (ADR) under the CDR OAuth2/OIDC (FAPI) authorization model over the
-    mutual-TLS data-holder host - they are not publicly accessible without
-    authorization.
-- aid: ubank:ubank-cdr-direct-debits-scheduled-payments-api
-  name: ubank CDR Direct Debits & Scheduled Payments API
+  - type: OpenAPI
+    url: openapi/ubank-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: ubank:ubank-banking-account-transactions-api
+  name: ubank Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
   tags:
-  - CDR
-  - Open Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Banking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.ubank.com.au/cdr/apis
-  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking
+  - Banking Account Transactions
   properties:
-  - url: https://www.ubank.com.au/cdr/apis
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
-    type: APIReference
-  - url: openapi/ubank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints exposing
-    a customer's authorized direct debits and scheduled/recurring payments (Get
-    Direct Debits For Account, Get Bulk Direct Debits, Get Scheduled Payments For
-    Account, Get Bulk Scheduled Payments), conforming to the DSB Consumer Data
-    Standards CDR Banking API. Access requires an active CDR consent and is mediated
-    by an Accredited Data Recipient (ADR) under the CDR OAuth2/OIDC (FAPI)
-    authorization model over the mutual-TLS data-holder host.
-- aid: ubank:ubank-cdr-payees-api
-  name: ubank CDR Payees API
+  - type: OpenAPI
+    url: openapi/ubank-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: ubank:ubank-banking-accounts-api
+  name: ubank Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
   tags:
-  - CDR
-  - Open Banking
-  - Payees
-  - Banking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.ubank.com.au/cdr/apis
-  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1/banking/payees
+  - Banking Accounts
   properties:
-  - url: https://www.ubank.com.au/cdr/apis
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
-    type: APIReference
-  - url: openapi/ubank-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-AUTHORIZED Consumer Data Right (CDR) banking endpoints returning
-    a customer's saved payees (Get Payees, Get Payee Detail), conforming to the DSB
-    Consumer Data Standards CDR Banking API. These endpoints require an active CDR
-    consent and are accessed by an Accredited Data Recipient (ADR) on the customer's
-    behalf under the CDR OAuth2/OIDC (FAPI) authorization model over the mutual-TLS
-    data-holder host - they are not open or unauthenticated.
+  - type: OpenAPI
+    url: openapi/ubank-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: ubank:ubank-banking-payees-api
+  name: ubank Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/ubank-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: ubank:ubank-banking-products-api
+  name: ubank Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://www.ubank.com.au/cdr/apis
+  baseURL: https://public.cdr-api.86400.com.au/cds-au/v1
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/ubank-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://www.ubank.com.au/cdr/apis
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
 common:
 - type: DomainSecurity
   url: security/ubank-domain-security.yml
