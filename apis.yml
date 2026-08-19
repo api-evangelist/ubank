@@ -39,7 +39,7 @@ tags:
 - Australia
 created: '2026-07-20'
 modified: '2026-07-21'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: ubank:ubank-banking-account-balances-api
   name: ubank Banking Account Balances API
