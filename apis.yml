@@ -228,6 +228,9 @@ apis:
   - type: APIReference
     url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
 common:
+- type: CapabilityMap
+  url: capabilities/ubank-capability-edges.yml
+  name: ubank Business Capability Map
 - type: DomainSecurity
   url: security/ubank-domain-security.yml
 - type: Authentication
