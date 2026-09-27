@@ -38,6 +38,17 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ubank.png
 tags:
+- Finance
+- Banks
+- Banking
+- Open Banking
+- CDR
+- Consumer Data Right
+- Product Reference Data
+- Digital Bank
+- Consumer Banking
+- Australia
+tags_raw:
 - Financial
 - Banks
 - Banking
